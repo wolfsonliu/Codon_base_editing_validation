@@ -1,0 +1,17 @@
+#! /usr/bin/bash
+
+# ref: ATAGAGATCAACCCATACCTGCTAGGCACCATGGCTGGGGGCGCAGCGGATTGCAGCTTCT
+# aim: ATAGAGATCAACCCATACCTGCTAGGCACCGTGGCTGGGGGCGCAGCGGATTGCAGCTTCT
+
+awk ' /ATAGAGATCA[ATCG]*TGCAGCTTCT/ {
+    match($0, /(ATAGAGATCA[ATCG]*TGCAGCTTCT)/, a);
+    if (length(a[1]) >= 62) {
+        print a[1];
+    }
+}
+/AGAAGCTGCA[CGAT]*TGATCTCTAT/ {
+    match($0, /(ATAGAGATCA[ATCG]*TGCAGCTTCT)/, b);
+    if (length(b[1]) >= 62) {
+        print b[1];
+    }
+}' $1
